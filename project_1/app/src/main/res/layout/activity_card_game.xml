@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Wheat">
+
+    <LinearLayout
+        android:id="@+id/main_layout_cards"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp">
+
+        <LinearLayout
+            android:id="@+id/main_layout_left_player"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_toLeftOf="@+id/main_layout_cards"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="25dp"
+                android:gravity="center"
+                android:text="8"
+                android:textSize="40dp"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="25dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="fitXY"
+                android:src="@drawable/spiderman" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/main_IV_card1"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            android:layout_weight="1"
+            android:src="@drawable/poker_a_1"
+            android:layout_margin="25dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@+id/main_IV_card2" />
+
+        <ImageView
+            android:id="@+id/main_IV_card2"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            android:layout_weight="1"
+            android:layout_margin="25dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/poker_a_2" />
+
+        <LinearLayout
+            android:id="@+id/main_layout_right_player"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:text="13"
+                android:textSize="40dp"
+                android:gravity="center"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="25dp"
+                android:scaleType="fitXY"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/batman" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="63dp"
+        android:layout_height="63dp"
+        android:layout_below="@+id/main_layout_cards"
+        android:layout_centerInParent="true"
+        android:layout_gravity="bottom"
+        android:layout_margin="20dp"
+        android:src="@drawable/play_button" />
+
+</RelativeLayout>
