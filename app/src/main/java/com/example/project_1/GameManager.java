@@ -29,28 +29,38 @@ public class GameManager {
         GameManager.p2Array = p2Array;
     }
 
+    /* Setup cards for the game. */
     public static void initCardGame()
     {
-        for(int i=0; i<cardNumberSize/4;i++)
-        {
-            int current = i+1;
-            String nameOfPicA = "R.drawable.pocker_a_" + (current);
-            String nameOfPicB = "R.drawable.pocker_b_" + (current);
-            String nameOfPicC = "R.drawable.pocker_c_" + (current);
-            String nameOfPicD = "R.drawable.pocker_d_" + (current);
-            mainStack.add(new Card(Integer.parseInt(nameOfPicA),(current)));
-            mainStack.add(new Card(Integer.parseInt(nameOfPicB),(current)));
-            mainStack.add(new Card(Integer.parseInt(nameOfPicC),(current)));
-            mainStack.add(new Card(Integer.parseInt(nameOfPicD),(current)));
+        // Setup cards data for the game:
+        for(int i = 0; i < cardNumberSize / 4; i++)  {
+
+            // Setup index to the card resource:
+            int current = i + 1;
+
+            String nameOfPicA = "poker_a_" + (current);
+            String nameOfPicB = "poker_b_" + (current);
+            String nameOfPicC = "poker_c_" + (current);
+            String nameOfPicD = "poker_d_" + (current);
+
+            // Add the new card to the data structure:
+            mainStack.add(new Card(i, nameOfPicA, current));
+            mainStack.add(new Card(i, nameOfPicB, current));
+            mainStack.add(new Card(i, nameOfPicC, current));
+            mainStack.add(new Card(i, nameOfPicD, current));
         }
+
+        // Shuffle all the card data:
         Collections.shuffle(mainStack);
-        for (int i = 0 ;i<halfArraySize;i++)
-        {
+
+        // Add cards for player 1:
+        for (int i = 0; i < halfArraySize; i++) {
             p1Array.add(mainStack.get(i));
         }
-        for (int j = halfArraySize ;j<cardNumberSize;j++)
-        {
-            p2Array.add(mainStack.get(j));
+
+        // Add cards for player 2:
+        for (int i = halfArraySize; i < cardNumberSize; i++) {
+            p2Array.add(mainStack.get(i));
         }
     }
 
