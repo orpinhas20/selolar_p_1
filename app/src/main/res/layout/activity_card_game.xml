@@ -2,6 +2,8 @@
 <RelativeLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Wheat">
@@ -40,7 +42,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/main_IV_card1"
+            android:id="@+id/main_IMG_card1"
             android:layout_width="0dp"
             android:layout_height="400dp"
             android:layout_weight="1"
@@ -50,7 +52,7 @@
             android:layout_marginLeft="@+id/main_IV_card2" />
 
         <ImageView
-            android:id="@+id/main_IV_card2"
+            android:id="@+id/main_IMG_card2"
             android:layout_width="0dp"
             android:layout_height="400dp"
             android:layout_weight="1"
