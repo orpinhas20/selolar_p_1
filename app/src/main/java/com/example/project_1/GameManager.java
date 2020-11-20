@@ -64,7 +64,7 @@ public class GameManager {
         }
     }
 
-    public static int checkWinnner(Card p1Card , Card p2Card)
+    public static int checkWinner(Card p1Card , Card p2Card)
     {
         return ((p1Card.getValue() >= p2Card.getValue()) ? 1:0 );
     }
