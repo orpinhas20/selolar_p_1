@@ -12,7 +12,7 @@ public class Activity_main extends AppCompatActivity {
     private ImageView main_IMG_card2;
 
     private int winner = 0;
-    int win = 0;
+    String winnerName = "";
     private int p1Count = 0;
     private int p2Count = 0;
 
@@ -23,8 +23,8 @@ public class Activity_main extends AppCompatActivity {
         setContentView(R.layout.activity_card_game);
         findViews();
         GameManager.initCardGame();
-        gamePlane();
-        //openSecondPage( win );
+//        gamePlane();
+//        openSecondPage( winnerName );
     }
 
     private void findViews(){
@@ -34,8 +34,8 @@ public class Activity_main extends AppCompatActivity {
 
     private void gamePlane(){
         for(int i = 0;i<26;i++) {
-            main_IMG_card1.setImageResource(GameManager.getP1Array().get(i).getName());
-            main_IMG_card2.setImageResource(GameManager.getP2Array().get(i).getName());
+            main_IMG_card1.setImageResource(Integer.parseInt(GameManager.getP1Array().get(i).getName()));
+            main_IMG_card2.setImageResource(Integer.parseInt(GameManager.getP2Array().get(i).getName()));
             winner = GameManager.checkWinnner(GameManager.getP1Array().get(i),GameManager.getP2Array().get(i));
             if(winner == 1)
                 p1Count++;
@@ -43,13 +43,14 @@ public class Activity_main extends AppCompatActivity {
                 p2Count++;
         }
         if( p1Count >= p2Count )
-            win = 1 ; //player a wins
+            winnerName = "P1 you are the winner" ; //player a wins
         else
-            win = 0; //player b wins
+            winnerName = "P2 you are the winner" ; //player b wins
     }
-    private void openSecondPage(int win){
+    private void openSecondPage(String win){
        Intent myIntent = new Intent(Activity_main.this,Activity_secondPage.class);
-        myIntent.putExtra(Activity_secondPage.EXTRA_KEY_WINNER,win);
+        myIntent.putExtra(Activity_secondPage.WINNER,winnerName);
+        startActivity(myIntent);
     }
 
 }

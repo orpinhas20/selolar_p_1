@@ -6,15 +6,19 @@ import android.widget.TextView;
 
 public class Activity_secondPage extends AppCompatActivity {
 
-    public static final String EXTRA_KEY_WINNER = "EXTRA_KEY_WINNER";
+    public static final String WINNER = "winner";
+
     private TextView winnerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_page);
-        int winner = getIntent().getIntExtra(EXTRA_KEY_WINNER, -1);
+        findView();
+        String winner = getIntent().getStringExtra(String.valueOf(WINNER));
         winnerName.setText("" + winner);
-
+    }
+    private void findView(){
+        winnerName = findViewById(R.id.secondPage_TV_winner);
     }
 }

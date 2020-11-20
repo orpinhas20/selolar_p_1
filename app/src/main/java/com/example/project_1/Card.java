@@ -1,19 +1,19 @@
 package com.example.project_1;
 
 public class Card {
-    private int name ;
+    private String name ;
     private int value = 0; //value: 1-13
 
-    public Card(int name, int value){
+    public Card(String name, int value){
         this.name = name;
         this.value=value;
 
     }
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 
