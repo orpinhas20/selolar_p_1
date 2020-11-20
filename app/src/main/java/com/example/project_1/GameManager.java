@@ -6,6 +6,7 @@ import java.util.List;
 
 public class GameManager {
 
+    public static final int MAX_CARDS = 26;
     private static final int cardNumberSize = 52;
     private static final int halfArraySize = cardNumberSize/2;
 
