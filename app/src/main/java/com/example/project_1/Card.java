@@ -1,19 +1,29 @@
 package com.example.project_1;
 
 public class Card {
-    private int name ;
-    private int value = 0; //value: 1-13
+    private String name;
+    private int id;
+    private int value = 0; // value: 1-13
 
-    public Card(int name, int value){
+    public Card(int id, String name, int value){
+        this.id = id;
         this.name = name;
-        this.value=value;
-
+        this.value = value;
     }
-    public int getName() {
+
+    public int getId(){
+        return this.id;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -24,6 +34,4 @@ public class Card {
     public void setValue(int value) {
         this.value = value;
     }
-
-
 }
