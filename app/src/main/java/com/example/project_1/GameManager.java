@@ -6,6 +6,7 @@ import java.util.List;
 
 public class GameManager {
 
+    public static final int MAX_CARDS = 26;
     private static final int cardNumberSize = 52;
     private static final int halfArraySize = cardNumberSize/2;
 
@@ -64,7 +65,7 @@ public class GameManager {
         }
     }
 
-    public static int checkWinnner(Card p1Card , Card p2Card)
+    public static int checkWinner(Card p1Card , Card p2Card)
     {
         return ((p1Card.getValue() >= p2Card.getValue()) ? 1:0 );
     }

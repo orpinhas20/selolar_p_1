@@ -11,7 +11,7 @@
     <LinearLayout
         android:id="@+id/main_layout_cards"
         android:layout_width="wrap_content"
-        android:layout_height="300dp">
+        android:layout_height="250dp">
 
         <LinearLayout
             android:id="@+id/main_layout_left_player"
@@ -23,11 +23,12 @@
             android:layout_gravity="center">
 
             <TextView
+                android:id="@+id/main_layout_player1_score"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="25dp"
                 android:gravity="center"
-                android:text="8"
+                android:text="0"
                 android:textSize="40dp"
                 android:textColor="@color/black" />
 
@@ -69,6 +70,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/main_layout_player2_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="25dp"
@@ -90,6 +92,7 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/main_layout_Button"
         android:layout_width="63dp"
         android:layout_height="63dp"
         android:layout_below="@+id/main_layout_cards"
