@@ -94,7 +94,7 @@ public class Activity_main extends AppCompatActivity {
 
     /* Active the second activity. */
     private void openSecondPage(int win){
-       Intent myIntent = new Intent(Activity_main.this, Activity_secondPage.class);
+        Intent myIntent = new Intent(Activity_main.this, Activity_secondPage.class);
         myIntent.putExtra(Activity_secondPage.WINNER, win);
         startActivity(myIntent);
     }

@@ -20,12 +20,12 @@ public class Activity_secondPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_page);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        initUI();
+        findviews();
         getWinnerFromIntent();
     }
 
     /* Setup class members from layout components. */
-    private void initUI(){
+    private void findviews(){
         this.promptWinner = findViewById(R.id.promptWinner);
         this.winnerAvatar = findViewById(R.id.winnerAvatar);
     }
