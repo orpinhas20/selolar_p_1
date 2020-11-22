@@ -3,6 +3,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,6 +17,7 @@ public class Activity_secondPage extends AppCompatActivity {
     private ImageView winnerAvatar;
     private int winner;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +26,10 @@ public class Activity_secondPage extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         findViews();
         getWinnerFromIntent();
+        MediaPlayer applause = MediaPlayer.create(Activity_secondPage.this,R.raw.applause);
+        applause.start();
+        applause.setVolume(1.0f,1.0f);
+
     }
 
     /* Setup class members from layout components. */

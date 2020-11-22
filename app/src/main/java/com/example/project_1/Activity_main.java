@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,7 +19,6 @@ public class Activity_main extends AppCompatActivity {
     private ImageView winnerButton;
     private TextView player1Score;
     private TextView player2Score;
-
     private int index = 0;
     private int p1Score = 0;
     private int p2Score = 0;
@@ -78,7 +78,11 @@ public class Activity_main extends AppCompatActivity {
         this.winnerButton.setOnTouchListener( new View.OnTouchListener(){
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
+
                 if (arg1.getAction() == MotionEvent.ACTION_DOWN){
+                    MediaPlayer button_click = MediaPlayer.create(Activity_main.this,R.raw.button_click);
+                    button_click.start();
+                    button_click.setVolume(1.0f,1.0f);
                     // Increase the card index and check if there are no more cards:
                     if(++index < GameManager.MAX_CARDS){
                         // Keep playing:
@@ -99,4 +103,5 @@ public class Activity_main extends AppCompatActivity {
         myIntent.putExtra(Activity_secondPage.WINNER, win);
         startActivity(myIntent);
     }
+
 }
