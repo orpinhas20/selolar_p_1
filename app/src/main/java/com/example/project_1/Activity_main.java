@@ -2,12 +2,13 @@ package com.example.project_1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +19,6 @@ public class Activity_main extends AppCompatActivity {
     private ImageView winnerButton;
     private TextView player1Score;
     private TextView player2Score;
-
     private int index = 0;
     private int p1Score = 0;
     private int p2Score = 0;
@@ -29,6 +29,7 @@ public class Activity_main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_card_game);
         findViews();
         GameManager.initCardGame();
@@ -77,7 +78,11 @@ public class Activity_main extends AppCompatActivity {
         this.winnerButton.setOnTouchListener( new View.OnTouchListener(){
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
+
                 if (arg1.getAction() == MotionEvent.ACTION_DOWN){
+                    MediaPlayer button_click = MediaPlayer.create(Activity_main.this,R.raw.button_click);
+                    button_click.start();
+                    button_click.setVolume(1.0f,1.0f);
                     // Increase the card index and check if there are no more cards:
                     if(++index < GameManager.MAX_CARDS){
                         // Keep playing:
@@ -94,8 +99,9 @@ public class Activity_main extends AppCompatActivity {
 
     /* Active the second activity. */
     private void openSecondPage(int win){
-       Intent myIntent = new Intent(Activity_main.this, Activity_secondPage.class);
+        Intent myIntent = new Intent(Activity_main.this, Activity_secondPage.class);
         myIntent.putExtra(Activity_secondPage.WINNER, win);
         startActivity(myIntent);
     }
+
 }

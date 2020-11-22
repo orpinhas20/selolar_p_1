@@ -3,8 +3,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,17 +17,23 @@ public class Activity_secondPage extends AppCompatActivity {
     private ImageView winnerAvatar;
     private int winner;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_second_page);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        initUI();
+        findViews();
         getWinnerFromIntent();
+        MediaPlayer applause = MediaPlayer.create(Activity_secondPage.this,R.raw.applause);
+        applause.start();
+        applause.setVolume(1.0f,1.0f);
+
     }
 
     /* Setup class members from layout components. */
-    private void initUI(){
+    private void findViews(){
         this.promptWinner = findViewById(R.id.promptWinner);
         this.winnerAvatar = findViewById(R.id.winnerAvatar);
     }

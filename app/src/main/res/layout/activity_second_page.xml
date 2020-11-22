@@ -2,11 +2,9 @@
 <RelativeLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Wheat">
+    android:background="@color/AliceBlue">
 
     <LinearLayout
         android:id="@+id/main_layout_cards"
@@ -18,9 +16,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="20dp"
+            android:layout_margin="20dp"
             android:text="TextView"
-            android:textColor="#673AB7"
-            android:textSize="36sp" />
+            android:maxLines="1"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
         <ImageView
             android:id="@+id/winnerAvatar"
@@ -32,6 +34,5 @@
             android:src="@drawable/batman">
         </ImageView>
 
-    </LinearLayout>
 
-</RelativeLayout>
+    </LinearLayout></RelativeLayout>
