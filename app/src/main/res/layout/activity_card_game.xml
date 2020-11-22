@@ -2,8 +2,7 @@
 <RelativeLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Wheat">
@@ -45,7 +44,7 @@
         <ImageView
             android:id="@+id/main_IMG_card1"
             android:layout_width="0dp"
-            android:layout_height="400dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/poker_a_1"
             android:layout_margin="25dp"
@@ -55,7 +54,7 @@
         <ImageView
             android:id="@+id/main_IMG_card2"
             android:layout_width="0dp"
-            android:layout_height="400dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_margin="25dp"
             android:layout_gravity="center_horizontal"
@@ -93,8 +92,8 @@
 
     <ImageView
         android:id="@+id/main_layout_Button"
-        android:layout_width="63dp"
-        android:layout_height="63dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/main_layout_cards"
         android:layout_centerInParent="true"
         android:layout_gravity="bottom"
