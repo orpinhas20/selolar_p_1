@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,8 +24,7 @@ public class Activity_main extends AppCompatActivity {
     private int index;
     private int p1Score;
     private int p2Score;
-    private int winner;
-    private int win;
+    private GameManager.Player winner;
 
     public Activity_main() {
         this.main_IMG_card1 = null;
@@ -34,9 +34,9 @@ public class Activity_main extends AppCompatActivity {
         this.index = 0;
         this.p1Score = 0;
         this.p2Score = 0;
-        this.winner = 0;
-        this.win = 0;
+        this.winner = GameManager.Player.Default;
         this.gameManager = GameManager.getInstance();
+        this.gameManager.initCardGame();
     }
 
     @Override
@@ -46,7 +46,6 @@ public class Activity_main extends AppCompatActivity {
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_card_game);
         findViews();
-        this.gameManager.initCardGame();
         setGamePlane();
         initEvents();
     }
@@ -62,29 +61,41 @@ public class Activity_main extends AppCompatActivity {
 
     /* Update the game layout. */
     private void setGamePlane() {
-        // Set the card for player 1:
-        String p1CardImageName = this.gameManager.getP1Array().get(this.index).getName();
-        int p1CardResourceId = Utils.getImageId(this, p1CardImageName);
+        // Set card for player 1:
+        Card p1Card = this.gameManager.getP1Card(this.index);
+        int p1CardResourceId = Utils.getImageId(this, p1Card.getName());
         main_IMG_card1.setImageResource(p1CardResourceId);
 
-        // Set the card for player 2:
-        String p2CardImageName = this.gameManager.getP2Array().get(this.index).getName();
-        int p2CardResourceId = Utils.getImageId(this, p2CardImageName);
+        // Set card for player 2:
+        Card p2Card = this.gameManager.getP2Card(this.index);
+        int p2CardResourceId = Utils.getImageId(this, p2Card.getName());
         main_IMG_card2.setImageResource(p2CardResourceId);
-
-        // Set players score:
-        player1Score.setText("" + this.p1Score);
-        player2Score.setText("" + this.p2Score);
     }
 
     /* Update the players score. */
     private void setWinner(){
-        // Check which player is the winner in this round:
-        this.winner = this.gameManager.checkWinner(this.gameManager.getP1Array().get(index),this.gameManager.getP2Array().get(index));
-        if(this.winner == 1)
-            this.p1Score++;
-        else
-            this.p2Score++;
+        // Get the current cards for the players:
+        Card p1Card = this.gameManager.getP1Card(this.index);
+        Card p2Card = this.gameManager.getP2Card(this.index);
+        this.winner = this.gameManager.checkWinner(p1Card, p2Card);
+
+        // Add score to the current winner:
+        switch(this.winner){
+            case Player1:
+                ++this.p1Score;
+                Log.d("CardWar", "The winner is Player 1 (spiderman), total score of: " + this.p1Score);
+                break;
+            case Player2:
+                ++this.p2Score;
+                Log.d("CardWar", "The winner is Player 2 (batman), total score of: " + this.p2Score);
+                break;
+            case Default:
+                break;
+        }
+
+        // Display players score:
+        player1Score.setText("" + this.p1Score);
+        player2Score.setText("" + this.p2Score);
     }
 
     /* Setup events for the layout components. */
@@ -92,18 +103,25 @@ public class Activity_main extends AppCompatActivity {
         this.winnerButton.setOnTouchListener( new View.OnTouchListener(){
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-
                 if (arg1.getAction() == MotionEvent.ACTION_DOWN){
-                    MediaPlayer button_click = MediaPlayer.create(Activity_main.this,R.raw.button_click);
-                    button_click.start();
-                    button_click.setVolume(1.0f,1.0f);
-                    // Increase the card index and check if there are no more cards:
-                    if(++index < gameManager.MAX_CARDS){
-                        // Keep playing:
-                        setWinner();
-                        setGamePlane();
+                    // Make noise for click:
+                    MediaPlayer buttonClick = MediaPlayer.create(Activity_main.this, R.raw.button_click);
+                    buttonClick.start();
+
+                    // If there are still cards to play with:
+                    if(index < gameManager.MAX_CARDS){
+                        // Run on UI thread:
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setWinner();
+                                index++;
+                                setGamePlane();
+                            }
+                        });
                     } else{
-                        openSecondPage(winner);
+                        // Display results:
+                        displayTheWinner(winner);
                     }
                 }
                 return true;
@@ -112,9 +130,20 @@ public class Activity_main extends AppCompatActivity {
     }
 
     /* Active the second activity. */
-    private void openSecondPage(int win){
+    private void displayTheWinner(GameManager.Player win){
         Intent myIntent = new Intent(Activity_main.this, Activity_secondPage.class);
-        myIntent.putExtra(Activity_secondPage.WINNER, win);
+
+        // Check who is the winner:
+        GameManager.Player winnerInTheGame;
+        if(p1Score > p2Score)
+            winnerInTheGame = GameManager.Player.Player1;
+        else if(p1Score < p2Score)
+            winnerInTheGame = GameManager.Player.Player2;
+        else
+            winnerInTheGame = GameManager.Player.Default;
+
+        // Active the results page:
+        myIntent.putExtra(Activity_secondPage.WINNER, winnerInTheGame.getValue());
         startActivity(myIntent);
     }
 

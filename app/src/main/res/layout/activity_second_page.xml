@@ -30,8 +30,7 @@
             android:layout_height="400dp"
             android:layout_weight="1"
             android:layout_margin="25dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/batman">
+            android:layout_gravity="center_horizontal">
         </ImageView>
 
 

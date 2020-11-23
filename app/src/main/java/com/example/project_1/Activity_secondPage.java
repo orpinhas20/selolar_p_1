@@ -15,12 +15,12 @@ public class Activity_secondPage extends AppCompatActivity {
     public static final String WINNER = "WINNER";
     private TextView promptWinner;
     private ImageView winnerAvatar;
-    private int winner;
+    private GameManager.Player winner;
 
     public Activity_secondPage() {
         promptWinner = null;
         winnerAvatar = null;
-        winner = 0;
+        winner = GameManager.Player.Default;
     }
 
     @Override
@@ -46,13 +46,22 @@ public class Activity_secondPage extends AppCompatActivity {
     /* Get data from main activity and display the winner. */
     private void getWinnerFromIntent() {
         Intent intent = getIntent();
-        int winner = intent.getIntExtra(WINNER, -1);
+
+        // Cast intent data to Player type:
+        int valueFromIntent = intent.getIntExtra(WINNER, 0);
+        GameManager.Player winner = GameManager.Player.values()[valueFromIntent];
 
         // Set the player name and the player avatar:
-        if(winner != -1){
-            promptWinner.setText("The winner is: " + (winner == 1 ? "Player 1" : "Player 2"));
-            String avatarName = (winner == 1 ? "spiderman" : "batman");
-            winnerAvatar.setImageResource(Utils.getImageId(this, avatarName));
+        if(winner != GameManager.Player.Default){
+            String winnerName = (winner == GameManager.Player.Player1 ? "Player 1" : "Player 2");
+            String winnerAvatarName = (winner == GameManager.Player.Player1 ? "spiderman" : "batman");
+
+            // Display the results to the user:
+            promptWinner.setText("The winner is: " + winnerName);
+            winnerAvatar.setImageResource(Utils.getImageId(this, winnerAvatarName));
+        }
+        else {
+            promptWinner.setText("There was a draw !");
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.example.project_1;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,7 +11,24 @@ public class GameManager {
     // Define constants:
     public static final int MAX_CARDS = 26;
     private static final int cardNumberSize = 52;
-    private static final int halfArraySize = cardNumberSize/2;
+    private static final int halfArraySize = cardNumberSize / 2;
+
+    // Define helper type:
+    public static enum Player {
+        Default(0),
+        Player1(1),
+        Player2(2);
+
+        private final int value;
+
+        Player(final int newValue){
+            this.value = newValue;
+        }
+
+        public int getValue(){
+            return this.value;
+        }
+    };
 
     // Add helper data strictures:
     private static List<Card>  mainStack;
@@ -31,20 +50,16 @@ public class GameManager {
         return instance;
     }
 
-    public List<Card> getP1Array() {
-        return p1Array;
+    public Card getP1Card(int index){
+        return p1Array.get(index);
     }
 
     public void setP1Array(List<Card> p1Array) {
         GameManager.p1Array = p1Array;
     }
 
-    public List<Card> getP2Array() {
-        return p2Array;
-    }
-
-    public void setP2Array(List<Card> p2Array) {
-        GameManager.p2Array = p2Array;
+    public Card getP2Card(int index){
+        return p2Array.get(index);
     }
 
     /* Setup cards for the game. */
@@ -81,8 +96,22 @@ public class GameManager {
         }
     }
 
-    public int checkWinner(Card p1Card , Card p2Card) {
-        return ((p1Card.getValue() >= p2Card.getValue()) ? 1:0 );
+    public Player checkWinner(Card p1Card , Card p2Card) {
+        int p1Score = p1Card.getValue();
+        int p2Score = p2Card.getValue();
+
+        if(p1Score > p2Score) {
+            Log.d("CardWar","[checkWinner()], Player1 won (" + p1Score + ", " + p2Score + ")");
+            return Player.Player1;
+        }
+        else if (p1Score < p2Score){
+            Log.d("CardWar","[checkWinner()], Player2 won (" + p1Score + ", " + p2Score + ")");
+            return Player.Player2;
+        }
+        else{
+            Log.d("CardWar","[checkWinner()], Default won (" + p1Score + ", " + p2Score + ")");
+            return Player.Default;
+        }
     }
 
 }
