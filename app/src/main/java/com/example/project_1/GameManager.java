@@ -1,38 +1,69 @@
 package com.example.project_1;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class GameManager {
 
+    // Define constants:
     public static final int MAX_CARDS = 26;
     private static final int cardNumberSize = 52;
-    private static final int halfArraySize = cardNumberSize/2;
+    private static final int halfArraySize = cardNumberSize / 2;
 
-    private static List<Card>  mainStack = new ArrayList();
-    private static List<Card> p1Array = new ArrayList();
-    private static List<Card> p2Array = new ArrayList();
+    // Define helper type:
+    public static enum Player {
+        Default(0),
+        Player1(1),
+        Player2(2);
 
-    public static List<Card> getP1Array() {
-        return p1Array;
+        private final int value;
+
+        Player(final int newValue){
+            this.value = newValue;
+        }
+
+        public int getValue(){
+            return this.value;
+        }
+    };
+
+    // Add helper data strictures:
+    private static List<Card>  mainStack;
+    private static List<Card> p1Array;
+    private static List<Card> p2Array;
+
+    // Define private class instance:
+    private static final GameManager instance = new GameManager();
+
+    // Define private constructor for Singleton pattern:
+    private GameManager() {
+        this.mainStack = new ArrayList();
+        this.p1Array = new ArrayList();
+        this.p2Array = new ArrayList();
     }
 
-    public static void setP1Array(List<Card> p1Array) {
+    // Get the instance of the class:
+    public static GameManager getInstance() {
+        return instance;
+    }
+
+    public Card getP1Card(int index){
+        return p1Array.get(index);
+    }
+
+    public void setP1Array(List<Card> p1Array) {
         GameManager.p1Array = p1Array;
     }
 
-    public static List<Card> getP2Array() {
-        return p2Array;
-    }
-
-    public static void setP2Array(List<Card> p2Array) {
-        GameManager.p2Array = p2Array;
+    public Card getP2Card(int index){
+        return p2Array.get(index);
     }
 
     /* Setup cards for the game. */
-    public static void initCardGame()
-    {
+    public void initCardGame() {
         // Setup cards data for the game:
         for(int i = 0; i < cardNumberSize / 4; i++)  {
 
@@ -65,9 +96,22 @@ public class GameManager {
         }
     }
 
-    public static int checkWinner(Card p1Card , Card p2Card)
-    {
-        return ((p1Card.getValue() >= p2Card.getValue()) ? 1:0 );
+    public Player checkWinner(Card p1Card , Card p2Card) {
+        int p1Score = p1Card.getValue();
+        int p2Score = p2Card.getValue();
+
+        if(p1Score > p2Score) {
+            Log.d("CardWar","[checkWinner()], Player1 won (" + p1Score + ", " + p2Score + ")");
+            return Player.Player1;
+        }
+        else if (p1Score < p2Score){
+            Log.d("CardWar","[checkWinner()], Player2 won (" + p1Score + ", " + p2Score + ")");
+            return Player.Player2;
+        }
+        else{
+            Log.d("CardWar","[checkWinner()], Default won (" + p1Score + ", " + p2Score + ")");
+            return Player.Default;
+        }
     }
 
 }
