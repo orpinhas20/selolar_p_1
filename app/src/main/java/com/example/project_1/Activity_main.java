@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 public class Activity_main extends AppCompatActivity {
 
+    private GameManager gameManager;
     private ImageView main_IMG_card1;
     private ImageView main_IMG_card2;
     private ImageView winnerButton;
@@ -35,6 +36,7 @@ public class Activity_main extends AppCompatActivity {
         this.p2Score = 0;
         this.winner = 0;
         this.win = 0;
+        this.gameManager = GameManager.getInstance();
     }
 
     @Override
@@ -44,7 +46,7 @@ public class Activity_main extends AppCompatActivity {
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_card_game);
         findViews();
-        GameManager.initCardGame();
+        this.gameManager.initCardGame();
         setGamePlane();
         initEvents();
     }
@@ -61,12 +63,12 @@ public class Activity_main extends AppCompatActivity {
     /* Update the game layout. */
     private void setGamePlane() {
         // Set the card for player 1:
-        String p1CardImageName = GameManager.getP1Array().get(this.index).getName();
+        String p1CardImageName = this.gameManager.getP1Array().get(this.index).getName();
         int p1CardResourceId = Utils.getImageId(this, p1CardImageName);
         main_IMG_card1.setImageResource(p1CardResourceId);
 
         // Set the card for player 2:
-        String p2CardImageName = GameManager.getP2Array().get(this.index).getName();
+        String p2CardImageName = this.gameManager.getP2Array().get(this.index).getName();
         int p2CardResourceId = Utils.getImageId(this, p2CardImageName);
         main_IMG_card2.setImageResource(p2CardResourceId);
 
@@ -78,7 +80,7 @@ public class Activity_main extends AppCompatActivity {
     /* Update the players score. */
     private void setWinner(){
         // Check which player is the winner in this round:
-        this.winner = GameManager.checkWinner(GameManager.getP1Array().get(index),GameManager.getP2Array().get(index));
+        this.winner = this.gameManager.checkWinner(this.gameManager.getP1Array().get(index),this.gameManager.getP2Array().get(index));
         if(this.winner == 1)
             this.p1Score++;
         else
@@ -96,7 +98,7 @@ public class Activity_main extends AppCompatActivity {
                     button_click.start();
                     button_click.setVolume(1.0f,1.0f);
                     // Increase the card index and check if there are no more cards:
-                    if(++index < GameManager.MAX_CARDS){
+                    if(++index < gameManager.MAX_CARDS){
                         // Keep playing:
                         setWinner();
                         setGamePlane();
