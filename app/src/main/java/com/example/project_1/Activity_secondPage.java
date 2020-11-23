@@ -17,6 +17,11 @@ public class Activity_secondPage extends AppCompatActivity {
     private ImageView winnerAvatar;
     private int winner;
 
+    public Activity_secondPage() {
+        promptWinner = null;
+        winnerAvatar = null;
+        winner = 0;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -19,11 +19,23 @@ public class Activity_main extends AppCompatActivity {
     private ImageView winnerButton;
     private TextView player1Score;
     private TextView player2Score;
-    private int index = 0;
-    private int p1Score = 0;
-    private int p2Score = 0;
-    private int winner = 0;
-    int win = 0;
+    private int index;
+    private int p1Score;
+    private int p2Score;
+    private int winner;
+    private int win;
+
+    public Activity_main() {
+        this.main_IMG_card1 = null;
+        this.main_IMG_card2 = null;
+        this.player1Score = null;
+        this.player2Score = null;
+        this.index = 0;
+        this.p1Score = 0;
+        this.p2Score = 0;
+        this.winner = 0;
+        this.win = 0;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
