@@ -30,10 +30,12 @@
             android:layout_width="361dp"
             android:layout_height="383dp"
             android:layout_margin="25dp"
-            android:src="@drawable/batman"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/promptWinner"
+        </ImageView>
+            android:layout_gravity="center_horizontal">
             app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/promptWinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/batman"
 
 </androidx.constraintlayout.widget.ConstraintLayout>
