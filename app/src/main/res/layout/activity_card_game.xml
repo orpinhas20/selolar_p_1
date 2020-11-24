@@ -1,103 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Wheat">
+    android:background="@color/Wheat"
+    >
 
     <LinearLayout
-        android:id="@+id/main_layout_cards"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp">
+        android:id="@+id/main_layout_left_player"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="28dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/main_IMG_card1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.235">
 
-        <LinearLayout
-            android:id="@+id/main_layout_left_player"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_toLeftOf="@+id/main_layout_cards"
-            android:orientation="vertical"
-            android:layout_gravity="center">
+        <TextView
+            android:id="@+id/main_layout_player1_score"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="25dp"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textSize="40dp" />
 
-            <TextView
-                android:id="@+id/main_layout_player1_score"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="25dp"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="40dp"
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="25dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/spiderman" />
+
+    </LinearLayout>
+
                 android:textColor="@color/black" />
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:gravity="center"
+                android:textSize="40dp"
+                android:text="0"
                 android:layout_margin="25dp"
-                android:layout_gravity="center_horizontal"
-                android:scaleType="fitXY"
-                android:src="@drawable/spiderman" />
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/main_IMG_card1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/poker_a_1"
-            android:layout_margin="25dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="@+id/main_IV_card2" />
-
-        <ImageView
-            android:id="@+id/main_IMG_card2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_margin="25dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/poker_a_2" />
-
-        <LinearLayout
-            android:id="@+id/main_layout_right_player"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/main_layout_player2_score"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="25dp"
-                android:text="0"
-                android:textSize="40dp"
-                android:gravity="center"
-                android:textColor="@color/black" />
+                android:layout_width="match_parent"
+                android:id="@+id/main_layout_player2_score"
+            <TextView
+        app:layout_constraintVertical_bias="0.08" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/main_layout_left_player"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toStartOf="@+id/main_IMG_card2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/poker_a_1"
+        android:layout_weight="1"
+        android:layout_marginStart="14dp"
+        android:layout_margin="25dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="213dp"
+        android:layout_width="123dp"
+        android:id="@+id/main_IMG_card1"
+    <ImageView
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_margin="25dp"
-                android:scaleType="fitXY"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/batman" />
+    <ImageView
+        android:id="@+id/main_IMG_card2"
+        android:layout_width="123dp"
+        android:layout_height="213dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="25dp"
+        android:layout_marginStart="14dp"
+        android:layout_weight="1"
+        android:src="@drawable/poker_a_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/main_IMG_card1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/main_layout_right_player"
+        app:layout_constraintVertical_bias="0.081" />
 
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/main_layout_right_player"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="28dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/main_IMG_card2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.235">
+
+        <TextView
+            android:id="@+id/main_layout_player2_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:gravity="center"
+            android:text="13"
+            android:textColor="@color/black"
+            android:textSize="40dp" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="25dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/batman" />
 
     </LinearLayout>
 
     <ImageView
         android:id="@+id/main_layout_Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/main_layout_cards"
-        android:layout_centerInParent="true"
-        android:layout_gravity="bottom"
+        android:layout_width="91dp"
+        android:layout_height="91dp"
+        android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"
-        android:src="@drawable/play_button" />
+        android:padding="16dp"
+        android:src="@drawable/play_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
