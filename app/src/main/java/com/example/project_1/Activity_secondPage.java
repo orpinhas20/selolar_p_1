@@ -41,6 +41,11 @@ public class Activity_secondPage extends AppCompatActivity {
     private void findViews(){
         this.promptWinner = findViewById(R.id.promptWinner);
         this.winnerAvatar = findViewById(R.id.winnerAvatar);
+
+        // Clear the avatar:
+        if(this.winnerAvatar != null){
+            this.winnerAvatar.setImageResource(0);
+        }
     }
 
     /* Get data from main activity and display the winner. */
