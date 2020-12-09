@@ -25,6 +25,8 @@ public class Activity_main extends AppCompatActivity {
     private int p1Score;
     private int p2Score;
     private GameManager.Player winner;
+    private Fragment_Table fragment_table;
+    private Fragment_Map fragment_map;
 
     public Activity_main() {
         this.main_IMG_card1 = null;
@@ -48,6 +50,9 @@ public class Activity_main extends AppCompatActivity {
         findViews();
         setGamePlane();
         initEvents();
+        fragment_table = new Fragment_Table();
+        fragment_table.setCallBack_top(callBack_top);
+
     }
 
     /* Setup class members from layout components. */
@@ -147,4 +152,15 @@ public class Activity_main extends AppCompatActivity {
         startActivity(myIntent);
     }
 
+    private CallBack_Top callBack_top = new CallBack_Top() {
+        @Override
+        public void changeTitle(String str) {
+           // main_BTN_updateTime.setText(str);
+        }
+
+        @Override
+        public void displayLocation(double lat, double lon) {
+            fragment_map.showLocationOnMap(lat, lon);
+        }
+    };
 }
