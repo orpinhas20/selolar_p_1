@@ -13,6 +13,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 public class Activity_main extends AppCompatActivity {
 
     private GameManager gameManager;
@@ -48,10 +50,13 @@ public class Activity_main extends AppCompatActivity {
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_card_game);
         findViews();
+//        Glide.with(this).load(R.drawable.start_card).into(main_IMG_card1);
+//        Glide.with(this).load(R.drawable.start_card).into(main_IMG_card2);
         setGamePlane();
         initEvents();
         fragment_table = new Fragment_Table();
         fragment_table.setCallBack_top(callBack_top);
+
 
     }
 
