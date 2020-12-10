@@ -1,19 +1,24 @@
 package com.example.project_1;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Activity_main extends AppCompatActivity {
 
@@ -23,12 +28,16 @@ public class Activity_main extends AppCompatActivity {
     private ImageView winnerButton;
     private TextView player1Score;
     private TextView player2Score;
+    private ProgressBar pb;
     private int index;
     private int p1Score;
     private int p2Score;
     private GameManager.Player winner;
     private Fragment_Table fragment_table;
     private Fragment_Map fragment_map;
+    private CountDownTimer mCountDownTimer;
+    private boolean isGameEnded = false;
+    int timerIndex =0;
 
     public Activity_main() {
         this.main_IMG_card1 = null;
@@ -50,14 +59,57 @@ public class Activity_main extends AppCompatActivity {
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_card_game);
         findViews();
-//        Glide.with(this).load(R.drawable.start_card).into(main_IMG_card1);
-//        Glide.with(this).load(R.drawable.start_card).into(main_IMG_card2);
+//      Glide.with(this).load(R.drawable.start_card).into(main_IMG_card1);
+//      Glide.with(this).load(R.drawable.start_card).into(main_IMG_card2);
         setGamePlane();
         initEvents();
         fragment_table = new Fragment_Table();
         fragment_table.setCallBack_top(callBack_top);
 
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mCountDownTimer!=null)
+        mCountDownTimer.cancel();
+    }
+
+    private void startTimer(){
+        Log.d("nissim","start timer");
+        pb.setMax(5);
+        pb.setProgress(timerIndex);
+        mCountDownTimer = new CountDownTimer(5000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                Log.d("nissim","onTick = " + (int) millisUntilFinished);
+                timerIndex++;
+                pb.setProgress(timerIndex);
+            }
+            @Override
+            public void onFinish() {
+                Toast.makeText(Activity_main.this, "נגמר הזמן", Toast.LENGTH_SHORT).show();
+                Log.d("nissim","is game ended? -> " + isGameEnded);
+                if (!isGameEnded) {
+                    mCountDownTimer.start();
+                }
+
+            }
+        }.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mCountDownTimer!=null) {
+            mCountDownTimer.cancel();
+            mCountDownTimer = null;
+        }
     }
 
     /* Setup class members from layout components. */
@@ -67,6 +119,7 @@ public class Activity_main extends AppCompatActivity {
         winnerButton = findViewById(R.id.main_layout_Button);
         player1Score = findViewById(R.id.main_layout_player1_score);
         player2Score = findViewById(R.id.main_layout_player2_score);
+        pb = findViewById(R.id.main_PB);
     }
 
     /* Update the game layout. */
@@ -110,13 +163,22 @@ public class Activity_main extends AppCompatActivity {
 
     /* Setup events for the layout components. */
     private void initEvents(){
-        this.winnerButton.setOnTouchListener( new View.OnTouchListener(){
+
+        winnerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    this.winnerButton.setOnTouchListener( new View.OnTouchListener(){
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 if (arg1.getAction() == MotionEvent.ACTION_DOWN){
                     // Make noise for click:
                     MediaPlayer buttonClick = MediaPlayer.create(Activity_main.this, R.raw.button_click);
                     buttonClick.start();
+
+                    startTimer();
 
                     // If there are still cards to play with:
                     if(index < gameManager.MAX_CARDS){
@@ -130,7 +192,9 @@ public class Activity_main extends AppCompatActivity {
                             }
                         });
                     } else{
+                        Log.d("nissim","else");
                         // Display results:
+                        isGameEnded = true;
                         displayTheWinner(winner);
                     }
                 }
@@ -168,4 +232,10 @@ public class Activity_main extends AppCompatActivity {
             fragment_map.showLocationOnMap(lat, lon);
         }
     };
+    private void getWinnerFromIntent() {
+        Intent intent = getIntent();
+        // Cast intent data to Player type:
+        String playerName = intent.getStringExtra(Const.PLAYER_NAME_KEY);
+        Log.d("pttt","the nanme is:" + playerName);
+    }
 }
