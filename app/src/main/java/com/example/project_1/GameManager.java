@@ -9,9 +9,10 @@ import java.util.List;
 public class GameManager {
 
     // Define constants:
-    public static final int MAX_CARDS = 26;
+    public static final int MAX_CARDS =26;
     private static final int cardNumberSize = 52;
     private static final int halfArraySize = cardNumberSize / 2;
+
 
     // Define helper type:
     public static enum Player {
@@ -99,6 +100,7 @@ public class GameManager {
     public Player checkWinner(Card p1Card , Card p2Card) {
         int p1Score = p1Card.getValue();
         int p2Score = p2Card.getValue();
+
 
         if(p1Score > p2Score) {
             Log.d("CardWar","[checkWinner()], Player1 won (" + p1Score + ", " + p2Score + ")");

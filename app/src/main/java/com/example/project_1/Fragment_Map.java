@@ -8,24 +8,35 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.maps.SupportMapFragment;
+
 
 public class Fragment_Map extends Fragment {
 
-    private TextView map_LBL_location;
+    private MapView lastPage_MAP_map;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("pttt", "onCreateView - Fragment_List");
-        View view = inflater.inflate(R.layout.fragment_map, container, false);
-        findViews(view);
-        return view;
-    }
+//    @Override
+////    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+////        Log.d("pttt", "onCreateView - Fragment_List");
+////        View view = inflater.inflate(R.layout.fragment_map, container, false);
+////        SupportMapFragment mapFragment =
+////                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.lastPage_MAP_map);
+////        mapFragment.getMapAsync(this);
+////    }
+//    @Override
+//    public void onMapReady(GoogleMap map) {
+//        map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+//    }
 
-    public void showLocationOnMap(double lat, double lon) {
-        map_LBL_location.setText(lat + "\n" + lon);
     }
-
-    private void findViews(View view) {
-        map_LBL_location = view.findViewById(R.id.map_LBL_location);
-    }
-}

@@ -6,8 +6,20 @@
     android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Wheat"
+    android:background="@color/Honeydew"
     >
+
+    <ProgressBar
+        android:id="@+id/main_PB"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:progress="0"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:max="26"/>
 
     <LinearLayout
         android:id="@+id/main_layout_left_player"
@@ -21,7 +33,7 @@
         app:layout_constraintEnd_toStartOf="@id/main_IMG_card1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.235">
+        app:layout_constraintVertical_bias="0.496">
 
         <TextView
             android:id="@+id/main_layout_player1_score"
@@ -42,6 +54,7 @@
             android:src="@drawable/spiderman" />
 
     </LinearLayout>
+
     <ImageView
         android:id="@+id/main_IMG_card1"
         android:layout_width="123dp"
@@ -50,13 +63,13 @@
         android:layout_margin="25dp"
         android:layout_marginStart="14dp"
         android:layout_weight="1"
-        android:src="@drawable/poker_a_1"
+        android:src="@drawable/start_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/main_IMG_card2"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/main_layout_left_player"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.08" />
+        app:layout_constraintVertical_bias="0.368" />
 
     <ImageView
         android:id="@+id/main_IMG_card2"
@@ -66,12 +79,12 @@
         android:layout_margin="25dp"
         android:layout_marginStart="14dp"
         android:layout_weight="1"
-        android:src="@drawable/poker_a_2"
+        android:src="@drawable/start_card"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/main_layout_right_player"
         app:layout_constraintStart_toEndOf="@id/main_IMG_card1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/main_layout_right_player"
-        app:layout_constraintVertical_bias="0.081" />
+        app:layout_constraintVertical_bias="0.368" />
 
     <LinearLayout
         android:id="@+id/main_layout_right_player"
@@ -85,7 +98,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/main_IMG_card2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.235">
+        app:layout_constraintVertical_bias="0.509">
 
         <TextView
             android:id="@+id/main_layout_player2_score"
@@ -119,6 +132,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintVertical_bias="1.0" />
 
+    <TextView
+        android:id="@+id/main_TV_player"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="player"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/main_layout_Button"
+        app:layout_constraintHorizontal_bias="0.312"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_layout_left_player"
+        app:layout_constraintVertical_bias="0.255" />
+
+    <TextView
+        android:id="@+id/main_TV_computer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="computer"
+        android:textSize="24dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.743"
+        app:layout_constraintStart_toEndOf="@id/main_layout_Button"
+        app:layout_constraintTop_toBottomOf="@id/main_layout_left_player"
+        app:layout_constraintVertical_bias="0.255" />
 </androidx.constraintlayout.widget.ConstraintLayout>

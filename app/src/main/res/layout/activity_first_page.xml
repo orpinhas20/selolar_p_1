@@ -7,46 +7,68 @@
     android:layout_height="match_parent"
     android:background="@color/Honeydew"
     android:orientation="vertical">
-<LinearLayout
-    android:id="@+id/first_layout_text"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toTopOf="@id/first_IMV_game"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:orientation="vertical"
-    >
+
     <TextView
         android:id="@+id/first_TXT_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="20dp"
         android:text="WELCOME TO CARD WAR"
         android:textColor="@color/Black"
         android:textSize="50dp"
         android:textStyle="bold"
-        android:padding="20dp"
-  />
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/first_TXT_enterName"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:hint="please enter your name : "
+        android:padding="20dp"
+        android:textColor="@color/black"
         android:textSize="25dp"
         android:textStyle="bold"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_TXT_welcome" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/first_BTN_TOPTEN"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/CornflowerBlue"
+        android:text="TOP-TEN"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_BTN_Start" />
 
     <ImageView
         android:id="@+id/first_IMV_game"
-        android:layout_width="370dp"
-        android:layout_height="180dp"
+        android:layout_width="211dp"
+        android:layout_height="124dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/card_game"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/first_layout_text" />
+        app:layout_constraintTop_toBottomOf="@+id/first_TXT_enterName" />
+
+    <Button
+        android:id="@+id/first_BTN_Start"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/CornflowerBlue"
+        android:text="start"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_IMV_game" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
