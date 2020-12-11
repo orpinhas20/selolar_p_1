@@ -5,17 +5,20 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Activity_secondPage extends AppCompatActivity {
 
-    public static final String WINNER = "WINNER";
     private TextView promptWinner;
     private ImageView winnerAvatar;
     private GameManager.Player winner;
+    private String playerName;
+    private Timer myTimer;
 
     public Activity_secondPage() {
         promptWinner = null;
@@ -47,18 +50,33 @@ public class Activity_secondPage extends AppCompatActivity {
             this.winnerAvatar.setImageResource(0);
         }
     }
+    private void startTimerTask() {
+        myTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                goToNextScreen();
+            }
+        }, 300);
+    }
+
+    private void goToNextScreen() {
+        Intent myIntent = new Intent(Activity_secondPage.this, Activity_lastPage.class);
+        startActivity(myIntent);
+        finish();
+    }
 
     /* Get data from main activity and display the winner. */
     private void getWinnerFromIntent() {
         Intent intent = getIntent();
 
         // Cast intent data to Player type:
-        int valueFromIntent = intent.getIntExtra(WINNER, 0);
+        int valueFromIntent = intent.getIntExtra(Const.PLAYER_WINNER_KEY, 0);
+        playerName = intent.getStringExtra(Const.PLAYER_NAME_KEY) ;
         GameManager.Player winner = GameManager.Player.values()[valueFromIntent];
 
         // Set the player name and the player avatar:
         if(winner != GameManager.Player.Default){
-            String winnerName = (winner == GameManager.Player.Player1 ? "Player 1" : "Player 2");
+            String winnerName = (winner == GameManager.Player.Player1 ? playerName : "computer");
             String winnerAvatarName = (winner == GameManager.Player.Player1 ? "spiderman" : "batman");
 
             // Display the results to the user:

@@ -1,6 +1,5 @@
 package com.example.project_1;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,14 +8,11 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,6 +24,8 @@ public class Activity_main extends AppCompatActivity {
     private ImageView winnerButton;
     private TextView player1Score;
     private TextView player2Score;
+    private TextView main_TV_player;
+    private TextView main_TV_computer;
     private ProgressBar pb;
     private int index;
     private int p1Score;
@@ -37,7 +35,8 @@ public class Activity_main extends AppCompatActivity {
     private Fragment_Map fragment_map;
     private CountDownTimer mCountDownTimer;
     private boolean isGameEnded = false;
-    int timerIndex =0;
+    private String playerName;
+    private Timer myTimer;
 
     public Activity_main() {
         this.main_IMG_card1 = null;
@@ -64,8 +63,53 @@ public class Activity_main extends AppCompatActivity {
         setGamePlane();
         initEvents();
         fragment_table = new Fragment_Table();
-        fragment_table.setCallBack_top(callBack_top);
+        //fragment_table.setCallBack_top(callBack_top);
+        myTimer = new Timer();
+        getPlayerName();
 
+    }
+
+    private void startTimerTask() {
+        myTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (index < gameManager.MAX_CARDS-1) {
+                    randomizeNewCards();
+                    if (myTimer!=null) {
+                        startTimerTask();
+                    }
+                } else {
+                    myTimer.cancel();
+                    myTimer = null;
+                     // Display results:
+                    displayTheWinner(winner);
+                }
+            }
+        }, 300);
+    }
+
+    private void randomizeNewCards() {
+        // Make noise for click:
+        MediaPlayer mp = MediaPlayer.create(Activity_main.this, R.raw.button_click);
+        mp.start();
+        // If there are still cards to play with:
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setWinner();
+                    index++;
+                    setGamePlane();
+                }
+            });
+
+
+
+
+    }
+
+    private void getPlayerName() {
+        playerName = getIntent().getStringExtra(Const.PLAYER_NAME_KEY);
+        main_TV_player.setText(playerName);
     }
 
     @Override
@@ -76,50 +120,29 @@ public class Activity_main extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (mCountDownTimer!=null)
-        mCountDownTimer.cancel();
-    }
-
-    private void startTimer(){
-        Log.d("nissim","start timer");
-        pb.setMax(5);
-        pb.setProgress(timerIndex);
-        mCountDownTimer = new CountDownTimer(5000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                Log.d("nissim","onTick = " + (int) millisUntilFinished);
-                timerIndex++;
-                pb.setProgress(timerIndex);
-            }
-            @Override
-            public void onFinish() {
-                Toast.makeText(Activity_main.this, "נגמר הזמן", Toast.LENGTH_SHORT).show();
-                Log.d("nissim","is game ended? -> " + isGameEnded);
-                if (!isGameEnded) {
-                    mCountDownTimer.start();
-                }
-
-            }
-        }.start();
+        if (mCountDownTimer != null)
+            mCountDownTimer.cancel();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mCountDownTimer!=null) {
+        if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
             mCountDownTimer = null;
         }
     }
 
-    /* Setup class members from layout components. */
     private void findViews() {
         main_IMG_card1 = findViewById(R.id.main_IMG_card1);
         main_IMG_card2 = findViewById(R.id.main_IMG_card2);
+        main_TV_player = findViewById(R.id.main_TV_player);
+        main_TV_computer = findViewById(R.id.main_TV_computer);
         winnerButton = findViewById(R.id.main_layout_Button);
         player1Score = findViewById(R.id.main_layout_player1_score);
         player2Score = findViewById(R.id.main_layout_player2_score);
         pb = findViewById(R.id.main_PB);
+
     }
 
     /* Update the game layout. */
@@ -136,21 +159,21 @@ public class Activity_main extends AppCompatActivity {
     }
 
     /* Update the players score. */
-    private void setWinner(){
+    private void setWinner() {
         // Get the current cards for the players:
         Card p1Card = this.gameManager.getP1Card(this.index);
         Card p2Card = this.gameManager.getP2Card(this.index);
         this.winner = this.gameManager.checkWinner(p1Card, p2Card);
 
         // Add score to the current winner:
-        switch(this.winner){
+        switch (this.winner) {
             case Player1:
                 ++this.p1Score;
-                Log.d("CardWar", "The winner is Player 1 (spiderman), total score of: " + this.p1Score);
+                Log.d("CardWar", "The winner is " + playerName + " (spiderman), total score of: " + this.p1Score);
                 break;
             case Player2:
                 ++this.p2Score;
-                Log.d("CardWar", "The winner is Player 2 (batman), total score of: " + this.p2Score);
+                Log.d("CardWar", "The winner is computer (batman), total score of: " + this.p2Score);
                 break;
             case Default:
                 break;
@@ -162,80 +185,49 @@ public class Activity_main extends AppCompatActivity {
     }
 
     /* Setup events for the layout components. */
-    private void initEvents(){
+    private void initEvents() {
 
         winnerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startTimerTask();
+                winnerButton.setEnabled(false);
             }
         });
-    this.winnerButton.setOnTouchListener( new View.OnTouchListener(){
-            @Override
-            public boolean onTouch(View arg0, MotionEvent arg1) {
-                if (arg1.getAction() == MotionEvent.ACTION_DOWN){
-                    // Make noise for click:
-                    MediaPlayer buttonClick = MediaPlayer.create(Activity_main.this, R.raw.button_click);
-                    buttonClick.start();
 
-                    startTimer();
-
-                    // If there are still cards to play with:
-                    if(index < gameManager.MAX_CARDS){
-                        // Run on UI thread:
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                setWinner();
-                                index++;
-                                setGamePlane();
-                            }
-                        });
-                    } else{
-                        Log.d("nissim","else");
-                        // Display results:
-                        isGameEnded = true;
-                        displayTheWinner(winner);
-                    }
-                }
-                return true;
-            }
-        });
     }
 
     /* Active the second activity. */
-    private void displayTheWinner(GameManager.Player win){
+    private void displayTheWinner(GameManager.Player win) {
         Intent myIntent = new Intent(Activity_main.this, Activity_secondPage.class);
 
         // Check who is the winner:
         GameManager.Player winnerInTheGame;
-        if(p1Score > p2Score)
+        if (p1Score > p2Score)
             winnerInTheGame = GameManager.Player.Player1;
-        else if(p1Score < p2Score)
+        else if (p1Score < p2Score)
             winnerInTheGame = GameManager.Player.Player2;
         else
             winnerInTheGame = GameManager.Player.Default;
 
         // Active the results page:
-        myIntent.putExtra(Activity_secondPage.WINNER, winnerInTheGame.getValue());
+        myIntent.putExtra(Const.PLAYER_WINNER_KEY, winnerInTheGame.getValue());
+        myIntent.putExtra(Const.PLAYER_NAME_KEY, playerName);
         startActivity(myIntent);
+        finish();
     }
 
-    private CallBack_Top callBack_top = new CallBack_Top() {
-        @Override
-        public void changeTitle(String str) {
-           // main_BTN_updateTime.setText(str);
-        }
+//    private CallBack_Top callBack_top = new CallBack_Top() {
+//        @Override
+//        public void changeTitle(String str) {
+//           // main_BTN_updateTime.setText(str);
+//        }
+//
+//        @Override
+//        public void displayLocation(double lat, double lon) {
+//            fragment_map.showLocationOnMap(lat, lon);
+//        }
+//    };
 
-        @Override
-        public void displayLocation(double lat, double lon) {
-            fragment_map.showLocationOnMap(lat, lon);
-        }
-    };
-    private void getWinnerFromIntent() {
-        Intent intent = getIntent();
-        // Cast intent data to Player type:
-        String playerName = intent.getStringExtra(Const.PLAYER_NAME_KEY);
-        Log.d("pttt","the nanme is:" + playerName);
-    }
+
 }

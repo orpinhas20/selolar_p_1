@@ -28,7 +28,7 @@ public class Activity_firstPage extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_page);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         findViews();
 
@@ -54,7 +54,7 @@ public class Activity_firstPage extends AppCompatActivity {
         String playerName = first_TXT_enterName.getText().toString();
 
         if (playerName.isEmpty()){
-            Toast.makeText(this, "יש להזין שם", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "enter name", Toast.LENGTH_SHORT).show();
             return;
         }
 

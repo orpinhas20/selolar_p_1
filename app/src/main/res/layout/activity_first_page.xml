@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,6 +18,7 @@
         android:textColor="@color/Black"
         android:textSize="50dp"
         android:textStyle="bold"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,37 +42,34 @@
         android:id="@+id/first_BTN_TOPTEN"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="TOP-TEN"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/first_IMV_game"
-        app:layout_constraintEnd_toStartOf="@id/first_IMV_game"
-        android:textColor="@color/black"
         android:backgroundTint="@color/CornflowerBlue"
-        />
+        android:text="TOP-TEN"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_BTN_Start" />
 
     <ImageView
         android:id="@+id/first_IMV_game"
         android:layout_width="211dp"
         android:layout_height="124dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/card_game"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/first_TXT_enterName"
-        app:layout_constraintVertical_bias="0.85" />
+        app:layout_constraintTop_toBottomOf="@+id/first_TXT_enterName" />
 
     <Button
         android:id="@+id/first_BTN_Start"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="start"
-        app:layout_constraintTop_toTopOf="@id/first_IMV_game"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/first_IMV_game"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/black"
+        android:layout_marginTop="40dp"
         android:backgroundTint="@color/CornflowerBlue"
-        />
+        android:text="start"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_IMV_game" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

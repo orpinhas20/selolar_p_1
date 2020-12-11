@@ -12,8 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project_1">
         <activity
-            android:name=".Activity_firstPage"
-            android:screenOrientation="landscape">
+            android:name=".Activity_firstPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -28,6 +27,14 @@
         </activity>
         <activity
             android:name=".Activity_secondPage"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity_lastPage"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape">
             <intent-filter>
