@@ -16,13 +16,14 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Activity_firstPage extends AppCompatActivity {
+public class Activity_firstPage extends AppCompatActivity implements View.OnClickListener {
 
     private TextView first_TXT_welcome;
     private EditText first_TXT_enterName;
     private ImageView first_IMV_game;
     private Button first_BTN_TOPTEN;
     private Button first_BTN_Start;
+    String playerName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,13 +33,10 @@ public class Activity_firstPage extends AppCompatActivity {
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         findViews();
 
+        first_BTN_TOPTEN.setOnClickListener(this);
+        first_BTN_Start.setOnClickListener(this);
 
-        first_BTN_Start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getPlayerName();
-            }
-        });
+
 
     }
 
@@ -50,20 +48,32 @@ public class Activity_firstPage extends AppCompatActivity {
         first_BTN_Start = findViewById(R.id.first_BTN_Start);
     }
 
-    private void getPlayerName(){
-        String playerName = first_TXT_enterName.getText().toString();
-
-        if (playerName.isEmpty()){
+    private void getPlayerName() {
+        playerName = first_TXT_enterName.getText().toString();
+        if (playerName.isEmpty()) {
             Toast.makeText(this, "enter name", Toast.LENGTH_SHORT).show();
             return;
         }
-
         Intent myIntent = new Intent(Activity_firstPage.this, Activity_main.class);
+        startActivity(myIntent);
         // Active the game page:
-        myIntent.putExtra(Const.PLAYER_NAME_KEY ,playerName);
+        SharedPreference.saveString(Const.PLAYER_NAME_KEY,playerName);
         startActivity(myIntent);
     }
 
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.first_BTN_Start :
+                getPlayerName();
+                break;
+            case R.id.first_BTN_TOPTEN :
+                Intent activity2Intent = new Intent(Activity_firstPage.this, Activity_lastPage.class);
+                startActivity(activity2Intent);
+                break;
+        }
+
+    }
 }

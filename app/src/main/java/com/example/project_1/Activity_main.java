@@ -63,7 +63,7 @@ public class Activity_main extends AppCompatActivity {
         setGamePlane();
         initEvents();
         fragment_table = new Fragment_Table();
-        //fragment_table.setCallBack_top(callBack_top);
+        //fragment_table.setCallBack_table(callBack_table);
         myTimer = new Timer();
         getPlayerName();
 
@@ -77,6 +77,7 @@ public class Activity_main extends AppCompatActivity {
                     randomizeNewCards();
                     if (myTimer!=null) {
                         startTimerTask();
+                        pb.setProgress(index);
                     }
                 } else {
                     myTimer.cancel();
@@ -108,7 +109,7 @@ public class Activity_main extends AppCompatActivity {
     }
 
     private void getPlayerName() {
-        playerName = getIntent().getStringExtra(Const.PLAYER_NAME_KEY);
+        playerName = SharedPreference.getSavedString(Const.PLAYER_NAME_KEY);
         main_TV_player.setText(playerName);
     }
 
@@ -199,25 +200,31 @@ public class Activity_main extends AppCompatActivity {
 
     /* Active the second activity. */
     private void displayTheWinner(GameManager.Player win) {
+        int winnerScore = 0;
         Intent myIntent = new Intent(Activity_main.this, Activity_secondPage.class);
-
         // Check who is the winner:
         GameManager.Player winnerInTheGame;
-        if (p1Score > p2Score)
+        if (p1Score > p2Score) {
             winnerInTheGame = GameManager.Player.Player1;
-        else if (p1Score < p2Score)
+            winnerScore = p1Score;
+        }
+
+        else if (p1Score < p2Score) {
             winnerInTheGame = GameManager.Player.Player2;
+            winnerScore = p2Score;
+        }
         else
             winnerInTheGame = GameManager.Player.Default;
 
         // Active the results page:
         myIntent.putExtra(Const.PLAYER_WINNER_KEY, winnerInTheGame.getValue());
-        myIntent.putExtra(Const.PLAYER_NAME_KEY, playerName);
+        myIntent.putExtra(Const.PLAYER_WINNER_KEY, winnerInTheGame.getValue());
+        myIntent.putExtra(Const.PLAYER_SCORE_KEY, winnerScore);
         startActivity(myIntent);
         finish();
     }
 
-//    private CallBack_Top callBack_top = new CallBack_Top() {
+//    private CallBack_Table callBack_table = new CallBack_Table() {
 //        @Override
 //        public void changeTitle(String str) {
 //           // main_BTN_updateTime.setText(str);

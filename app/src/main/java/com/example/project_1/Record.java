@@ -2,14 +2,12 @@ package com.example.project_1;
 
 public class Record {
         private String name;
-        private long date;
         private int score;
 
         public Record() { }
 
-        public Record(String name, long date, int score) {
+        public Record(String name, int score) {
             this.name = name;
-            this.date = date;
             this.score = score;
         }
 
@@ -19,15 +17,6 @@ public class Record {
 
         public Record setName(String name) {
             this.name = name;
-            return this;
-        }
-
-        public long getDate() {
-            return date;
-        }
-
-        public Record setDate(long date) {
-            this.date = date;
             return this;
         }
 

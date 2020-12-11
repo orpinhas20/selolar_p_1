@@ -1,40 +1,61 @@
 package com.example.project_1;
-import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class SharedPreference {
 
-        private static SharedPreference instance;
-        private SharedPreferences prefs;
-
-        private SharedPreference(Context context) {
-            prefs = context.getSharedPreferences("spFile", Context.MODE_PRIVATE);
+        public static SharedPreferences getSpManager() {
+            return PreferenceManager.getDefaultSharedPreferences(App.instance);
         }
 
-        public static void init(Context context) {
-            if (instance == null) {
-                instance = new SharedPreference(context.getApplicationContext());
-            }
-        }
-
-        public static SharedPreference getInstance() {
-            return instance;
-        }
-
-        public void putString(String key, String value) {
-            SharedPreferences.Editor editor = prefs.edit();
+        public static void saveString(String key, String value) {
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(App.instance);
+            SharedPreferences.Editor editor = sp.edit();
             editor.putString(key, value);
             editor.apply();
         }
 
-        public String getString(String key, String def) {
-            return prefs.getString(key, def);
+        public static String getSavedString(String key) {
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(App.instance);
+            return sp.getString(key, "");
         }
 
-        public void removeKey(String key) {
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.remove(key);
+        public static void saveInt(String key, int value) {
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(App.instance);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putInt(key, value);
             editor.apply();
+        }
 
-    }
+        public static int getSavedInt(String key) {
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(App.instance);
+            return sp.getInt(key, 0);
+        }
+
+        public static void saveBoolean(String key, Boolean value) {
+
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(App.instance);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putBoolean(key, value);
+            editor.apply();
+        }
+
+        public static boolean getSavedBoolean(String key) {
+
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(App.instance);
+            return sp.getBoolean(key, false);
+
+        }
+
+        public static void saveLong(String key, long value) {
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(App.instance);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putLong(key, value);
+            editor.apply();
+        }
+
+        public static long getSavedLong(String key) {
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(App.instance);
+            return sp.getLong(key, 0);
+        }
 }

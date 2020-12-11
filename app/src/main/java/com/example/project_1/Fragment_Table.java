@@ -14,9 +14,9 @@ public class Fragment_Table extends Fragment {
 
     private TextView list_LBL_name;
     private Button list_BTN_update;
-    private CallBack_Top callBack_top;
+    private CallBack_Table callBack_top;
 
-    public void setCallBack_top(CallBack_Top _callBack_top) {
+    public void setCallBack_top(CallBack_Table _callBack_top) {
         this.callBack_top = _callBack_top;
     }
 
