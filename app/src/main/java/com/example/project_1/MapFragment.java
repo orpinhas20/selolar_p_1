@@ -40,6 +40,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     private LatLng position;
     private Marker currentMarker;
 
+    public MapFragment(){ }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +75,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.map = googleMap;
+        this.map.getUiSettings().setZoomControlsEnabled(true);
+        this.map.getUiSettings().setCompassEnabled(true);
         this.updateMap(this.position);
     }
 
@@ -120,6 +124,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     .addMarker(new MarkerOptions()
                             .position(this.position));
             this.map.moveCamera(CameraUpdateFactory.newLatLng(this.position));
+
+            // Zoom to the location:
+            this.map.animateCamera(CameraUpdateFactory.zoomTo(16), 1000, null);
         }
     }
 
