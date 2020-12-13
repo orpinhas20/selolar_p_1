@@ -32,7 +32,7 @@ public class Activity_main extends AppCompatActivity {
     private int p2Score;
     private GameManager.Player winner;
     private Fragment_Table fragment_table;
-    private Fragment_Map fragment_map;
+    //private Fragment_Map fragment_map;
     private CountDownTimer mCountDownTimer;
     private boolean isGameEnded = false;
     private String playerName;
