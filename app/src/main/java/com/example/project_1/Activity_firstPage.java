@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Activity_firstPage extends AppCompatActivity implements View.OnClickListener {
 
+    private static final int PERMISSIONS_REQUEST_LOCATION = 99;
+
     private TextView first_TXT_welcome;
     private EditText first_TXT_enterName;
     private ImageView first_IMV_game;
@@ -33,8 +35,8 @@ public class Activity_firstPage extends AppCompatActivity implements View.OnClic
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         findViews();
 
-        first_BTN_TOPTEN.setOnClickListener(this);
-        first_BTN_Start.setOnClickListener(this);
+        // Set location services permissions:
+        this.getLocationPermission();
 
 
 
@@ -61,7 +63,16 @@ public class Activity_firstPage extends AppCompatActivity implements View.OnClic
         startActivity(myIntent);
     }
 
-
+    private void getLocationPermission(){
+        if(Utils.checkLocationPermission(
+                getApplication().getBaseContext(),
+                this,
+                PERMISSIONS_REQUEST_LOCATION)){
+            App.instance.setLocationStatus(true);
+        }else{
+            App.instance.setLocationStatus(false);
+        }
+    }
 
     @Override
     public void onClick(View v) {

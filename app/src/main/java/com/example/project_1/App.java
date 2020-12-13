@@ -1,8 +1,15 @@
 package com.example.project_1;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -12,10 +19,18 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class App extends Application {
+public class App extends Application implements LocationListener {
+
+    private final long LOCATION_REFRESH_TIME = 1; // 1 Minutes
+    private final float LOCATION_REFRESH_DISTANCE = 1; // 10 Meters
 
     public static App instance;
     private ArrayList<Record> recordsList;
+    private boolean isLocationEnabled = false;
+    private LocationManager locationManager;
+    private LatLng currentPosition;
+
+    public App() {}
 
     @Override
     public void onCreate() {
@@ -23,14 +38,27 @@ public class App extends Application {
         instance = this;
     }
 
-//    public ArrayList<Record> getRecordsList() {
-//        if (recordsList == null) return new ArrayList<Record>();
-//        return recordsList;
-//    }
-//
-//    public void setRecordsList(ArrayList<Record> recordsList) {
-//        this.recordsList = recordsList;
-//    }
+    @SuppressLint("MissingPermission")
+    public void setLocationStatus(boolean isEnabled){
+        this.isLocationEnabled = isEnabled;
+        if(isEnabled){
+            this.locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
+        }
+    }
+
+    public boolean getLocationStatus(){
+        return this.isLocationEnabled;
+    }
+
+    private void setPosition(double lat, double lng){
+        this.currentPosition = new LatLng(lat, lng);
+    }
+
+    public LatLng getPosition(){
+        return this.currentPosition;
+    }
 
     public void saveRecordToSP(Record record) {
 
@@ -45,7 +73,7 @@ public class App extends Application {
 
                     recordsList.set(recordsList.size() - 1, record);
                 }
-        }
+            }
         }
 
         sortRecordList();
@@ -79,5 +107,12 @@ public class App extends Application {
             }
         });
 
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        if(this.isLocationEnabled){
+            this.setPosition(location.getLatitude(), location.getLongitude());
+        }
     }
 }
