@@ -81,7 +81,11 @@ public class Activity_secondPage extends AppCompatActivity {
 
 
             if (!winnerName.equals("computer")){
-                Record record = new Record(winnerName,winnerScore, Calendar.getInstance().getTime());
+                Record record = new Record()
+                        .setName(winnerName)
+                        .setScore(winnerScore)
+                        .setDate(Calendar.getInstance().getTime())
+                        .setLocation(App.instance.getPosition());
                 App.instance.saveRecordToSP(record);
             }
 
