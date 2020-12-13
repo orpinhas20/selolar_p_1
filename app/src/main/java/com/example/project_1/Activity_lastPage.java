@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Activity_lastPage extends AppCompatActivity {
 
     private MapFragment mapFragment;
+    private TableFragment tableFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -19,6 +20,14 @@ public class Activity_lastPage extends AppCompatActivity {
         setContentView(R.layout.activity_last_page);
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        // Add table fragment to activity:
+        this.tableFragment = new TableFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.TOP_FRAGMENT_TABLE, tableFragment)
+                .commit();
+
+        // Add Google map to activity:
         this.mapFragment = new MapFragment();
         getSupportFragmentManager()
                 .beginTransaction()
