@@ -25,7 +25,9 @@ public class Activity_firstPage extends AppCompatActivity implements View.OnClic
     private ImageView first_IMV_game;
     private Button first_BTN_TOPTEN;
     private Button first_BTN_Start;
-    String playerName;
+    private String playerName;
+
+    public Activity_firstPage() { }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,12 +36,10 @@ public class Activity_firstPage extends AppCompatActivity implements View.OnClic
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         findViews();
+        initUI();
 
         // Set location services permissions:
         this.getLocationPermission();
-
-
-
     }
 
     private void findViews() {
@@ -48,6 +48,11 @@ public class Activity_firstPage extends AppCompatActivity implements View.OnClic
         first_IMV_game = findViewById(R.id.first_IMV_game);
         first_BTN_TOPTEN = findViewById(R.id.first_BTN_TOPTEN);
         first_BTN_Start = findViewById(R.id.first_BTN_Start);
+    }
+
+    private void initUI(){
+        first_BTN_TOPTEN.setOnClickListener(this);
+        first_BTN_Start.setOnClickListener(this);
     }
 
     private void getPlayerName() {
