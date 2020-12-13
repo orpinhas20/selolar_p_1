@@ -20,15 +20,20 @@ public class Activity_lastPage extends AppCompatActivity {
         setContentView(R.layout.activity_last_page);
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        // Add table fragment to activity:
+        // Setup UI elements:
         this.tableFragment = new TableFragment();
+        this.mapFragment = new MapFragment();
+
+        // Register callbacks:
+        this.tableFragment.setOnItemClickCallback(this.mapFragment);
+
+        // Add table fragment to activity:
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.TOP_FRAGMENT_TABLE, tableFragment)
                 .commit();
 
         // Add Google map to activity:
-        this.mapFragment = new MapFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.TOP_FRAGMENT_MAP, mapFragment)

@@ -222,18 +222,4 @@ public class Activity_main extends AppCompatActivity {
         startActivity(myIntent);
         finish();
     }
-
-//    private CallBack_Table callBack_table = new CallBack_Table() {
-//        @Override
-//        public void changeTitle(String str) {
-//           // main_BTN_updateTime.setText(str);
-//        }
-//
-//        @Override
-//        public void displayLocation(double lat, double lon) {
-//            fragment_map.showLocationOnMap(lat, lon);
-//        }
-//    };
-
-
 }

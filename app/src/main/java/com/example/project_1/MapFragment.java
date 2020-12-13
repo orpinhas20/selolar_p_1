@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements OnMapReadyCallback, OnItemClickCallback {
 
     private View view;
     private MapView mapView;
@@ -103,6 +104,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             // Zoom to the location:
             this.map.animateCamera(CameraUpdateFactory.zoomTo(16), 1000, null);
         }
+    }
+
+    @Override
+    public void displayLocation(LatLng position) {
+        updateMap(position);
     }
 }
 

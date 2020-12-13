@@ -15,6 +15,7 @@ public class TableFragment extends Fragment implements RecordsAdapter.ItemClickL
 
     private RecyclerView last_RV_table;
     private RecordsAdapter adapter;
+    private OnItemClickCallback onItemClickCallback;
 
     public TableFragment() { }
 
@@ -48,9 +49,15 @@ public class TableFragment extends Fragment implements RecordsAdapter.ItemClickL
         this.last_RV_table = view.findViewById(R.id.last_RV_table);
     }
 
+    /* Register callback that implements specific interface. */
+    public void setOnItemClickCallback(OnItemClickCallback callback){
+        this.onItemClickCallback = callback;
+    }
+
     @Override
     public void onItemClick(View view, int position) {
-        // TODO: Remove !!!
-        Toast.makeText(getContext(), "Location: " + this.adapter.getItem(position).getLocation().toString(), Toast.LENGTH_SHORT).show();
+        // Call to registered callback with to wanted location:
+        this.onItemClickCallback.displayLocation(this.adapter.getItem(position).getLocation());
+        //Toast.makeText(getContext(), "Location: " + this.adapter.getItem(position).getLocation().toString(), Toast.LENGTH_SHORT).show();
     }
 }
