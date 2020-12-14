@@ -26,6 +26,7 @@ public class Activity_main extends AppCompatActivity {
     private TextView player2Score;
     private TextView main_TV_player;
     private TextView main_TV_computer;
+    private TextView main_TV_frase;
     private ProgressBar pb;
     private int index;
     private int p1Score;
@@ -115,6 +116,7 @@ public class Activity_main extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 
     @Override
@@ -122,6 +124,7 @@ public class Activity_main extends AppCompatActivity {
         super.onPause();
         if (mCountDownTimer != null)
             mCountDownTimer.cancel();
+
     }
 
     @Override
@@ -142,6 +145,7 @@ public class Activity_main extends AppCompatActivity {
         player1Score = findViewById(R.id.main_layout_player1_score);
         player2Score = findViewById(R.id.main_layout_player2_score);
         pb = findViewById(R.id.main_PB);
+        main_TV_frase = findViewById(R.id.main_TV_frase);
 
     }
 
@@ -191,7 +195,8 @@ public class Activity_main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startTimerTask();
-                winnerButton.setEnabled(false);
+                winnerButton.setVisibility(View.INVISIBLE);
+                main_TV_frase.setVisibility(v.VISIBLE);
             }
         });
 

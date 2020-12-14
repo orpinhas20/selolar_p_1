@@ -19,10 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Activity_firstPage extends AppCompatActivity implements View.OnClickListener {
 
     private static final int PERMISSIONS_REQUEST_LOCATION = 99;
-
-    private TextView first_TXT_welcome;
     private EditText first_TXT_enterName;
-    private ImageView first_IMV_game;
     private Button first_BTN_TOPTEN;
     private Button first_BTN_Start;
     private String playerName;
@@ -43,9 +40,7 @@ public class Activity_firstPage extends AppCompatActivity implements View.OnClic
     }
 
     private void findViews() {
-        first_TXT_welcome = findViewById(R.id.first_TXT_welcome);
         first_TXT_enterName = findViewById(R.id.first_TXT_enterName);
-        first_IMV_game = findViewById(R.id.first_IMV_game);
         first_BTN_TOPTEN = findViewById(R.id.first_BTN_TOPTEN);
         first_BTN_Start = findViewById(R.id.first_BTN_Start);
     }
@@ -92,4 +87,5 @@ public class Activity_firstPage extends AppCompatActivity implements View.OnClic
         }
 
     }
+
 }
