@@ -9,6 +9,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -79,7 +81,11 @@ public class Activity_secondPage extends AppCompatActivity {
 
 
             if (!winnerName.equals("computer")){
-                Record record = new Record(winnerName,winnerScore);
+                Record record = new Record()
+                        .setName(winnerName)
+                        .setScore(winnerScore)
+                        .setDate(Calendar.getInstance().getTime())
+                        .setLocation(App.instance.getPosition());
                 App.instance.saveRecordToSP(record);
             }
 

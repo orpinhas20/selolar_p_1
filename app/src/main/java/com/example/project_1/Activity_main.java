@@ -31,8 +31,7 @@ public class Activity_main extends AppCompatActivity {
     private int p1Score;
     private int p2Score;
     private GameManager.Player winner;
-    private Fragment_Table fragment_table;
-    //private Fragment_Map fragment_map;
+    private TableFragment fragment_table;
     private CountDownTimer mCountDownTimer;
     private boolean isGameEnded = false;
     private String playerName;
@@ -62,7 +61,7 @@ public class Activity_main extends AppCompatActivity {
 //      Glide.with(this).load(R.drawable.start_card).into(main_IMG_card2);
         setGamePlane();
         initEvents();
-        fragment_table = new Fragment_Table();
+        fragment_table = new TableFragment();
         //fragment_table.setCallBack_table(callBack_table);
         myTimer = new Timer();
         getPlayerName();
@@ -223,18 +222,4 @@ public class Activity_main extends AppCompatActivity {
         startActivity(myIntent);
         finish();
     }
-
-//    private CallBack_Table callBack_table = new CallBack_Table() {
-//        @Override
-//        public void changeTitle(String str) {
-//           // main_BTN_updateTime.setText(str);
-//        }
-//
-//        @Override
-//        public void displayLocation(double lat, double lon) {
-//            fragment_map.showLocationOnMap(lat, lon);
-//        }
-//    };
-
-
 }
