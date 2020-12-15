@@ -13,6 +13,9 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,16 +30,19 @@ public class Activity_main extends AppCompatActivity {
     private TextView main_TV_player;
     private TextView main_TV_computer;
     private TextView main_TV_frase;
+    private ImageView IMV_firstPlayer;
+    private ImageView IMV_secondPlayer;
+    private ImageView main_layout_Button;
+    private MediaPlayer mp;
+    private CountDownTimer mCountDownTimer;
+    private Timer myTimer;
     private ProgressBar pb;
+    private GameManager.Player winner;
+    private TableFragment fragment_table;
+    private String playerName;
     private int index;
     private int p1Score;
     private int p2Score;
-    private GameManager.Player winner;
-    private TableFragment fragment_table;
-    private CountDownTimer mCountDownTimer;
-    private boolean isGameEnded = false;
-    private String playerName;
-    private Timer myTimer;
 
     public Activity_main() {
         this.main_IMG_card1 = null;
@@ -58,54 +64,55 @@ public class Activity_main extends AppCompatActivity {
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_card_game);
         findViews();
-//      Glide.with(this).load(R.drawable.start_card).into(main_IMG_card1);
-//      Glide.with(this).load(R.drawable.start_card).into(main_IMG_card2);
-        setGamePlane();
+        allGlide();
         initEvents();
         fragment_table = new TableFragment();
-        //fragment_table.setCallBack_table(callBack_table);
         myTimer = new Timer();
         getPlayerName();
+    }
 
+    private void allGlide() {
+        Glide.with(this).load(R.drawable.start_card).into(main_IMG_card1);
+        Glide.with(this).load(R.drawable.start_card).into(main_IMG_card2);
+        Glide.with(this).load(R.drawable.spiderman).into(IMV_firstPlayer);
+        Glide.with(this).load(R.drawable.batman).into(IMV_secondPlayer);
+        Glide.with(this).load(R.drawable.play_button).into(main_layout_Button);
+        Glide.with(this).load(R.drawable.start_card).into(main_IMG_card2);
     }
 
     private void startTimerTask() {
         myTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if (index < gameManager.MAX_CARDS-1) {
+                if (index < gameManager.MAX_CARDS - 1) {
                     randomizeNewCards();
-                    if (myTimer!=null) {
+                    if (myTimer != null) {
                         startTimerTask();
                         pb.setProgress(index);
                     }
                 } else {
                     myTimer.cancel();
                     myTimer = null;
-                     // Display results:
+                    // Display results:
                     displayTheWinner(winner);
                 }
             }
-        }, 300);
+        }, 400);
     }
 
     private void randomizeNewCards() {
         // Make noise for click:
-        MediaPlayer mp = MediaPlayer.create(Activity_main.this, R.raw.button_click);
+        mp = MediaPlayer.create(Activity_main.this, R.raw.button_click);
         mp.start();
         // If there are still cards to play with:
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    setWinner();
-                    index++;
-                    setGamePlane();
-                }
-            });
-
-
-
-
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setWinner();
+                index++;
+                setGamePlane();
+            }
+        });
     }
 
     private void getPlayerName() {
@@ -116,7 +123,6 @@ public class Activity_main extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     @Override
@@ -124,7 +130,6 @@ public class Activity_main extends AppCompatActivity {
         super.onPause();
         if (mCountDownTimer != null)
             mCountDownTimer.cancel();
-
     }
 
     @Override
@@ -146,7 +151,9 @@ public class Activity_main extends AppCompatActivity {
         player2Score = findViewById(R.id.main_layout_player2_score);
         pb = findViewById(R.id.main_PB);
         main_TV_frase = findViewById(R.id.main_TV_frase);
-
+        IMV_firstPlayer = findViewById(R.id.IMV_firstPlayer);
+        IMV_secondPlayer = findViewById(R.id.IMV_secondPlayer);
+        main_layout_Button = findViewById(R.id.main_layout_Button);
     }
 
     /* Update the game layout. */
@@ -154,12 +161,14 @@ public class Activity_main extends AppCompatActivity {
         // Set card for player 1:
         Card p1Card = this.gameManager.getP1Card(this.index);
         int p1CardResourceId = Utils.getImageId(this, p1Card.getName());
-        main_IMG_card1.setImageResource(p1CardResourceId);
+        Glide.with(this).load(p1CardResourceId).into(main_IMG_card1);
+        //main_IMG_card1.setImageResource(p1CardResourceId);
 
         // Set card for player 2:
         Card p2Card = this.gameManager.getP2Card(this.index);
         int p2CardResourceId = Utils.getImageId(this, p2Card.getName());
-        main_IMG_card2.setImageResource(p2CardResourceId);
+        Glide.with(this).load(p2CardResourceId).into(main_IMG_card2);
+        //main_IMG_card2.setImageResource(p2CardResourceId);
     }
 
     /* Update the players score. */
@@ -173,16 +182,15 @@ public class Activity_main extends AppCompatActivity {
         switch (this.winner) {
             case Player1:
                 ++this.p1Score;
-                Log.d("CardWar", "The winner is " + playerName + " (spiderman), total score of: " + this.p1Score);
+                //Log.d("CardWar", "The winner is " + playerName + " (spiderman), total score of: " + this.p1Score);
                 break;
             case Player2:
                 ++this.p2Score;
-                Log.d("CardWar", "The winner is computer (batman), total score of: " + this.p2Score);
+                //Log.d("CardWar", "The winner is computer (batman), total score of: " + this.p2Score);
                 break;
             case Default:
                 break;
         }
-
         // Display players score:
         player1Score.setText("" + this.p1Score);
         player2Score.setText("" + this.p2Score);
@@ -190,7 +198,6 @@ public class Activity_main extends AppCompatActivity {
 
     /* Setup events for the layout components. */
     private void initEvents() {
-
         winnerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,7 +206,6 @@ public class Activity_main extends AppCompatActivity {
                 main_TV_frase.setVisibility(v.VISIBLE);
             }
         });
-
     }
 
     /* Active the second activity. */
@@ -211,13 +217,10 @@ public class Activity_main extends AppCompatActivity {
         if (p1Score > p2Score) {
             winnerInTheGame = GameManager.Player.Player1;
             winnerScore = p1Score;
-        }
-
-        else if (p1Score < p2Score) {
+        } else if (p1Score < p2Score) {
             winnerInTheGame = GameManager.Player.Player2;
             winnerScore = p2Score;
-        }
-        else
+        } else
             winnerInTheGame = GameManager.Player.Default;
 
         // Active the results page:

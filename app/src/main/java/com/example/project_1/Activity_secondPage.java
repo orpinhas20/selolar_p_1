@@ -9,6 +9,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
@@ -61,8 +63,7 @@ public class Activity_secondPage extends AppCompatActivity {
                 startActivity(myIntent);
                 finish();
             }
-        }, 3000);
-
+        }, 2000);
     }
 
     /* Get data from main activity and display the winner. */
@@ -91,12 +92,13 @@ public class Activity_secondPage extends AppCompatActivity {
 
             // Display the results to the user:
             promptWinner.setText("The winner is: " + winnerName);
-            winnerAvatar.setImageResource(Utils.getImageId(this, winnerAvatarName));
+            //winnerAvatar.setImageResource(Utils.getImageId(this, winnerAvatarName));
+            Glide.with(this).load(Utils.getImageId(this, winnerAvatarName)).into(winnerAvatar);
+
         }
         else {
             promptWinner.setText("There was a draw !");
         }
         goToNextScreen();
-
     }
 }

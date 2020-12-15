@@ -46,12 +46,13 @@
             android:textSize="40dp" />
 
         <ImageView
+            android:id="@+id/IMV_firstPlayer"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="25dp"
             android:scaleType="fitXY"
-            android:src="@drawable/spiderman" />
+             />
 
     </LinearLayout>
 
@@ -63,7 +64,6 @@
         android:layout_margin="25dp"
         android:layout_marginStart="14dp"
         android:layout_weight="1"
-        android:src="@drawable/start_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/main_IMG_card2"
         app:layout_constraintHorizontal_bias="1.0"
@@ -79,7 +79,6 @@
         android:layout_margin="25dp"
         android:layout_marginStart="14dp"
         android:layout_weight="1"
-        android:src="@drawable/start_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/main_layout_right_player"
         app:layout_constraintStart_toEndOf="@id/main_IMG_card1"
@@ -111,12 +110,13 @@
             android:textSize="40dp" />
 
         <ImageView
+            android:id="@+id/IMV_secondPlayer"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="25dp"
             android:scaleType="fitXY"
-            android:src="@drawable/batman" />
+             />
 
     </LinearLayout>
 
@@ -127,7 +127,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="20dp"
         android:padding="16dp"
-        android:src="@drawable/play_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
