@@ -39,7 +39,6 @@ public class Activity_firstPage extends AppCompatActivity implements View.OnClic
         initUI();
         Glide.with(this).load(R.drawable.card_game).into(first_IMV_game);
 
-
         // Set location services permissions:
         this.getLocationPermission();
     }

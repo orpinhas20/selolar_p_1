@@ -77,11 +77,11 @@ public class Activity_secondPage extends AppCompatActivity {
         int winnerScore = intent.getIntExtra(Const.PLAYER_SCORE_KEY, 0);
         // Set the player name and the player avatar:
         if(winner != GameManager.Player.Default){
-            winnerName = (winner == GameManager.Player.Player1 ? playerName : "computer");
-            String winnerAvatarName = (winner == GameManager.Player.Player1 ? "spiderman" : "batman");
+            winnerName = (winner == GameManager.Player.Player1 ? playerName : Const.COMPUTER);
+            String winnerAvatarName = (winner == GameManager.Player.Player1 ? Const.PLAYER_1 : Const.PLAYER_2);
 
 
-            if (!winnerName.equals("computer")){
+            if (!winnerName.equals(Const.COMPUTER)){
                 Record record = new Record()
                         .setName(winnerName)
                         .setScore(winnerScore)
@@ -97,7 +97,7 @@ public class Activity_secondPage extends AppCompatActivity {
 
         }
         else {
-            promptWinner.setText("There was a draw !");
+            promptWinner.setText("Its a draw !");
         }
         goToNextScreen();
     }

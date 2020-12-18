@@ -9,4 +9,8 @@ public class Const {
     public static final String RECORDS_LIST_KEY = "RECORDS_LIST";
     public static final int RECORDS_TOP_TEN = 10;
     public static final String PLAYER_SCORE_KEY = "PLAYER_WINNER_SCORE";
+    public static final String COMPUTER = "computer";
+    public static final String PLAYER_1 = "spiderman";
+    public static final String PLAYER_2 = "batman";
+
 }
