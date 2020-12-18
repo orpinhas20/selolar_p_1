@@ -16,15 +16,15 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+
 public class Activity_firstPage extends AppCompatActivity implements View.OnClickListener {
 
     private static final int PERMISSIONS_REQUEST_LOCATION = 99;
-
-    private TextView first_TXT_welcome;
     private EditText first_TXT_enterName;
-    private ImageView first_IMV_game;
     private Button first_BTN_TOPTEN;
     private Button first_BTN_Start;
+    private ImageView first_IMV_game;
     private String playerName;
 
     public Activity_firstPage() { }
@@ -37,15 +37,15 @@ public class Activity_firstPage extends AppCompatActivity implements View.OnClic
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         findViews();
         initUI();
+        Glide.with(this).load(R.drawable.card_game).into(first_IMV_game);
 
         // Set location services permissions:
         this.getLocationPermission();
     }
 
     private void findViews() {
-        first_TXT_welcome = findViewById(R.id.first_TXT_welcome);
-        first_TXT_enterName = findViewById(R.id.first_TXT_enterName);
         first_IMV_game = findViewById(R.id.first_IMV_game);
+        first_TXT_enterName = findViewById(R.id.first_TXT_enterName);
         first_BTN_TOPTEN = findViewById(R.id.first_BTN_TOPTEN);
         first_BTN_Start = findViewById(R.id.first_BTN_Start);
     }
@@ -90,6 +90,5 @@ public class Activity_firstPage extends AppCompatActivity implements View.OnClic
                 startActivity(activity2Intent);
                 break;
         }
-
     }
 }

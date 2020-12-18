@@ -101,19 +101,17 @@ public class GameManager {
         int p1Score = p1Card.getValue();
         int p2Score = p2Card.getValue();
 
-
         if(p1Score > p2Score) {
-            Log.d("CardWar","[checkWinner()], Player1 won (" + p1Score + ", " + p2Score + ")");
+            //Log.d("CardWar","[checkWinner()], Player1 won (" + p1Score + ", " + p2Score + ")");
             return Player.Player1;
         }
         else if (p1Score < p2Score){
-            Log.d("CardWar","[checkWinner()], Player2 won (" + p1Score + ", " + p2Score + ")");
+            //Log.d("CardWar","[checkWinner()], Player2 won (" + p1Score + ", " + p2Score + ")");
             return Player.Player2;
         }
         else{
-            Log.d("CardWar","[checkWinner()], Default won (" + p1Score + ", " + p2Score + ")");
+            //Log.d("CardWar","[checkWinner()], Default won (" + p1Score + ", " + p2Score + ")");
             return Player.Default;
         }
     }
-
 }

@@ -79,7 +79,6 @@ public class App extends Application implements LocationListener {
         sortRecordList();
         Gson gson = new Gson();
         String json = gson.toJson(recordsList);
-        Log.d("json", "json to save = " + json);
         SharedPreference.saveString(Const.RECORDS_LIST_KEY, json);
     }
 

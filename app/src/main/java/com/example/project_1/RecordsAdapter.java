@@ -98,7 +98,7 @@ public class RecordsAdapter extends RecyclerView.Adapter<RecordsAdapter.MyViewHo
         @Override
         public void onClick(View view) {
             if (clickListener != null) {
-                Log.d("CardWar","Fire click listener, Adapter position: " + getAdapterPosition());
+                //Log.d("CardWar","Fire click listener, Adapter position: " + getAdapterPosition());
                 clickListener.onItemClick(view, getAdapterPosition());
             }
         }
