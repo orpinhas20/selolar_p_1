@@ -104,6 +104,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, OnItemC
             // Zoom to the location:
             this.map.animateCamera(CameraUpdateFactory.zoomTo(16), 1000, null);
         }
+        else{
+            Toast.makeText(getContext(), "this player dose not have location", Toast.LENGTH_SHORT).show();
+        } //Toast.makeText(getContext(), "Location: " + this.adapter.getItem(position).getLocation().toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
